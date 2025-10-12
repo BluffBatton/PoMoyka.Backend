@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums
 {
-    enum BookingStatus
+    public enum BookingStatus
     {
         Done,
         Waiting,

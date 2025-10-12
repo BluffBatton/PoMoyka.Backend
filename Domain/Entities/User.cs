@@ -9,7 +9,11 @@ namespace Domain.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
-        public string AvatarPath {  get; set; }
-        Role Role { get; set; }
+        public string AvatarPath { get; set; }
+        public Role Role { get; set; }
+
+        public Car Car { get; set; }
+        public Statement Statement { get; set; }
+        public Booking Booking { get; set; }
     }
 }

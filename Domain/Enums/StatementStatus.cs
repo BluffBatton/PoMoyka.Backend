@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums
 {
-    enum StatementStatus
+    public enum StatementStatus
     {
         Unread,
         Read

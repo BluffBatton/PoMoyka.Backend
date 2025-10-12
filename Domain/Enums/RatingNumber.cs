@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums
 {
-    enum RatingNumber
+    public enum RatingNumber
     {
         One,
         Two,

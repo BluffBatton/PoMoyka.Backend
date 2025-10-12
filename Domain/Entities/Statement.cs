@@ -6,8 +6,9 @@ namespace Domain.Entities
     {
         public Guid StatementID { get; set; }
         public Guid UserID { get; set; }
+        public List<User> Users { get; set; }
         public string Topic { get; set; }
         public string Message { get; set; }
-        StatementStatus status { get; set; } = StatementStatus.Unread;
+        public StatementStatus status { get; set; } = StatementStatus.Unread;
     }
 }
