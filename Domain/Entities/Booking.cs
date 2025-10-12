@@ -8,6 +8,7 @@ namespace Domain.Entities
         public Guid UserID { get; set; }
         public List<User> Users { get; set; }
         public Guid CenterServiceID { get; set; } 
+        public CenterService CenterService { get; set; }
         public DateTime booked_time { get; set; }
         public BookingStatus Status { get; set; }
     }
