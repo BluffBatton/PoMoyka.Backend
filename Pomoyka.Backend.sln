@@ -5,9 +5,7 @@ VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoMoyka.Backend.API", "PoMoyka.Backend.API\PoMoyka.Backend.API.csproj", "{E542EBF5-F170-4963-A95C-91201BF49CE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{8BCB8892-91B2-4E06-A2EB-765930B07757}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redress.Backend.Infrastructure", "Redress.Backend.Infrastructure\Redress.Backend.Infrastructure.csproj", "{0CA5F0B1-E495-4A5B-B367-C0CC2EBC03DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoMoyka.Backend.Domain", "Domain\PoMoyka.Backend.Domain.csproj", "{8BCB8892-91B2-4E06-A2EB-765930B07757}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{8BCB8892-91B2-4E06-A2EB-765930B07757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BCB8892-91B2-4E06-A2EB-765930B07757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BCB8892-91B2-4E06-A2EB-765930B07757}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CA5F0B1-E495-4A5B-B367-C0CC2EBC03DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CA5F0B1-E495-4A5B-B367-C0CC2EBC03DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CA5F0B1-E495-4A5B-B367-C0CC2EBC03DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CA5F0B1-E495-4A5B-B367-C0CC2EBC03DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
