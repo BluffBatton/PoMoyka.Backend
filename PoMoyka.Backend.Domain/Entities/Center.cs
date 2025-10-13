@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities
+﻿namespace PoMoyka.Backend.Domain.Entities
 {
     internal class Center
     {

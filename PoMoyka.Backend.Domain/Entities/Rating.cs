@@ -1,6 +1,6 @@
-﻿using Domain.Enums;
+﻿using PoMoyka.Backend.Domain.Enums;
 
-namespace Domain.Entities
+namespace PoMoyka.Backend.Domain.Entities
 {
     internal class Rating
     {

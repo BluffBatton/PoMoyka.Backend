@@ -1,6 +1,6 @@
-﻿namespace Domain.Enums
+﻿namespace PoMoyka.Backend.Domain.Enums
 {
-   public enum Role
+    public enum Role
     {
         Admin,
         Client,
