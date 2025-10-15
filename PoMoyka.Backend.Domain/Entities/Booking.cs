@@ -1,4 +1,4 @@
-﻿using PoMoyka.Backend.Domain.Enums;
+using PoMoyka.Backend.Domain.Enums;
 using PoMoyka.Backend.Domain.Common;
 
 namespace PoMoyka.Backend.Domain.Entities
