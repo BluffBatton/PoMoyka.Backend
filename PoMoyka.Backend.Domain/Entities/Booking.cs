@@ -1,15 +1,17 @@
-﻿using PoMoyka.Backend.Domain.Enums;
+using PoMoyka.Backend.Domain.Enums;
+using PoMoyka.Backend.Domain.Common;
 
 namespace PoMoyka.Backend.Domain.Entities
 {
-    internal class Booking
+    public class Booking : BaseEntity
     {
-        public Guid BookingID { get; set; }
-        public Guid UserID { get; set; }
-        public List<User> Users { get; set; }
-        public Guid CenterServiceID { get; set; }
-        public CenterService CenterService { get; set; }
-        public DateTime booked_time { get; set; }
+        public DateTime BookedTime { get; set; }
         public BookingStatus Status { get; set; }
+        public Guid UserID { get; set; }
+        public required virtual User User { get; set; }
+        public Guid CenterServiceID { get; set; } 
+        public required virtual CenterService CenterService { get; set; }
+
+        public virtual Transaction? Transaction { get; set; }
     }
 }

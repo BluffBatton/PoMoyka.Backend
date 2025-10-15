@@ -1,14 +1,14 @@
 ﻿using PoMoyka.Backend.Domain.Enums;
+using PoMoyka.Backend.Domain.Common;
 
 namespace PoMoyka.Backend.Domain.Entities
 {
-    internal class Statement
+    public class Statement : BaseEntity
     {
-        public Guid StatementID { get; set; }
         public Guid UserID { get; set; }
-        public List<User> Users { get; set; }
-        public string Topic { get; set; }
-        public string Message { get; set; }
+        public required virtual User User { get; set; }
+        public required string Topic { get; set; }
+        public required string Message { get; set; }
         public StatementStatus status { get; set; } = StatementStatus.Unread;
     }
 }

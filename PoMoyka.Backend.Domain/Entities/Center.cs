@@ -1,13 +1,15 @@
-﻿namespace PoMoyka.Backend.Domain.Entities
+﻿using PoMoyka.Backend.Domain.Common;
+
+namespace PoMoyka.Backend.Domain.Entities
 {
-    internal class Center
+    public class Center : BaseEntity
     {
-        public Guid CenterID { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Latitude { get; set; }
-        public string Longtitude { get; set; }
+        public required string Name { get; set; }
+        public required string Address { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public Guid UserID { get; set; }
-        public User User { get; set; }
+        public virtual User ?User { get; set; }
+        public virtual ICollection<CenterService> ?CenterServices { get; set; }
     }
 }

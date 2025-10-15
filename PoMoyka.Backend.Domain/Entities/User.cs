@@ -1,19 +1,21 @@
 ﻿using PoMoyka.Backend.Domain.Enums;
+using PoMoyka.Backend.Domain.Common;
 
 namespace PoMoyka.Backend.Domain.Entities
 {
-    internal class User
+    public class User : BaseEntity
     {
-        public Guid UserID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public string AvatarPath { get; set; }
-        public Role Role { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; }
+        public required string PasswordHash { get; set; }
+        public string? AvatarPath { get; set; }
+        public Role Role { get; set; } = Role.Client;
 
-        public Car Car { get; set; }
-        public Statement Statement { get; set; }
-        public Booking Booking { get; set; }
+        public virtual Car ?Car { get; set; }
+        public virtual Center ?Center { get; set; }
+        public virtual ICollection<Statement> ?Statements { get; set; }
+        public virtual ICollection<Booking> ?Bookings { get; set; }
+         
     }
 }
