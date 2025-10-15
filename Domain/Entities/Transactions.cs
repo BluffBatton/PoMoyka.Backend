@@ -1,13 +1,12 @@
-﻿namespace Domain.Entities
+﻿using PoMoyka.Backend.Domain.Common;
+
+namespace Domain.Entities
 {
-    internal class Transaction
+    public class Transaction : BaseEntity
     {
-        public Guid TransactionID { get; set; }
+        public decimal Amount { get; set; }
         public Guid BookingID { get; set; }
-        public Booking Booking { get; set; }
-        public int Amount { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public Guid RatingID { get; set; }
-        public Rating Rating { get; set; }
+        public required virtual Booking Booking { get; set; }
+        public virtual Rating ?Rating { get; set; }
     }
 }

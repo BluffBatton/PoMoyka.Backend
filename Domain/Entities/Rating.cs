@@ -1,11 +1,12 @@
 ﻿using Domain.Enums;
+using PoMoyka.Backend.Domain.Common;
 
 namespace Domain.Entities
 {
-    internal class Rating
+    public class Rating : BaseEntity
     {
-        public Guid RatingID { get; set; }
-        public Transaction Transaction { get; set; }
         public RatingNumber RatingNumber { get; set; }
+        public Guid TransactionID { get; set; }
+        public required virtual Transaction Transaction { get; set; }
     }
 }

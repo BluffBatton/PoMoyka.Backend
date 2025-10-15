@@ -1,11 +1,14 @@
-﻿namespace Domain.Entities
+﻿using PoMoyka.Backend.Domain.Common;
+
+namespace Domain.Entities
 {
-    internal class CenterService
+    public class CenterService : BaseEntity
     {
-        public Guid CenterServiceID { get; set; }
-        public Guid ServiceID { get; set; }
-        public List<Service> Services { get; set; }
+        public decimal Price { get; set; }
+        public Guid CenterID { get; set; }
+        public required virtual Center Center { get; set; }
         public Guid TypeServiceID { get; set; }
-        public List<TypeService> TypeServices { get; set; }
+        public required virtual TypeService TypeService { get; set; }
+        public virtual ICollection<Booking>? Bookings { get; set; }
     }
 }
