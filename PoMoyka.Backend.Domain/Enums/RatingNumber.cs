@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums
+﻿namespace PoMoyka.Backend.Domain.Enums
 {
     public enum RatingNumber
     {

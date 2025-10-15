@@ -1,6 +1,6 @@
 ﻿using PoMoyka.Backend.Domain.Common;
 
-namespace Domain.Entities
+namespace PoMoyka.Backend.Domain.Entities
 {
     public class Center : BaseEntity
     {

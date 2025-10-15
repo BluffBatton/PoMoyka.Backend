@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
+using PoMoyka.Backend.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PoMoyka.Backend.Infrastructure.Data.Common;
 

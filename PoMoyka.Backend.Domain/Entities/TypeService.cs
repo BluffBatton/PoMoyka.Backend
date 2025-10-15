@@ -1,7 +1,7 @@
-﻿using Domain.Enums;
+﻿using PoMoyka.Backend.Domain.Enums;
 using PoMoyka.Backend.Domain.Common;
 
-namespace Domain.Entities
+namespace PoMoyka.Backend.Domain.Entities
 {
     public class TypeService : BaseEntity
     {

@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PoMoyka.Backend.Domain\PoMoyka.Backend.Domain.csproj" />
+    <ProjectReference Include="..\PoMoyka.Backend.API\PoMoyka.Backend.API.csproj" />
   </ItemGroup>
 
 </Project>
