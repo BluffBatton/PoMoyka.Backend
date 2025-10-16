@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PoMoyka.Backend.Domain.Common;
-
-namespace PoMoyka.Backend.Infrastructure.Data.Common
+namespace PoMoyka.Backend.Infrastructure.Persistence.Common
 {
     public abstract class BaseEntityConfiguration<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
     {

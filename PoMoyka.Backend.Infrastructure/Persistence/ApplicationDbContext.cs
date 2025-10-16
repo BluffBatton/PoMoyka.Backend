@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PoMoyka.Backend.Application.Interfaces;
 using PoMoyka.Backend.Domain.Entities;
 
-namespace PoMoyka.Backend.Infrastructure.Data
+namespace PoMoyka.Backend.Infrastructure.Persistence
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
@@ -26,5 +27,6 @@ namespace PoMoyka.Backend.Infrastructure.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }

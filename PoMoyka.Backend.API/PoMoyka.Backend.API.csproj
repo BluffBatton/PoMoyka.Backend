@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +17,12 @@
 
   <ItemGroup>
     <None Include="PoMoyka.Backend.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PoMoyka.Backend.Application\PoMoyka.Backend.Application.csproj" />
+    <ProjectReference Include="..\PoMoyka.Backend.Contracts\PoMoyka.Backend.Contracts.csproj" />
+    <ProjectReference Include="..\PoMoyka.Backend.Infrastructure\PoMoyka.Backend.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

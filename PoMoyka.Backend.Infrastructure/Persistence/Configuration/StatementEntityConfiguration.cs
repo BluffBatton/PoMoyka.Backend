@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PoMoyka.Backend.Domain.Entities;
 using PoMoyka.Backend.Domain.Enums;
-using PoMoyka.Backend.Infrastructure.Data.Common;
+using PoMoyka.Backend.Infrastructure.Persistence.Common;
 
-namespace PoMoyka.Backend.Infrastructure.Data.Configuration
+namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
 {
     internal class StatementEntityConfiguration : BaseEntityConfiguration<Statement>
     {
