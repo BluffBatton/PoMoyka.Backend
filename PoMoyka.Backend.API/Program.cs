@@ -11,7 +11,8 @@ namespace PoMoyka.Backend.API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddPersistence(builder.Configuration);
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
             //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             // Add services to the container.
 
