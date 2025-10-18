@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PoMoyka.Backend.Application\PoMoyka.Backend.Application.csproj" />
     <ProjectReference Include="..\PoMoyka.Backend.Contracts\PoMoyka.Backend.Contracts.csproj" />
     <ProjectReference Include="..\PoMoyka.Backend.Infrastructure\PoMoyka.Backend.Infrastructure.csproj" />
