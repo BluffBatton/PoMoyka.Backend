@@ -11,7 +11,7 @@ namespace PoMoyka.Backend.Domain.Entities
     {
         public required string Name { get; set; }
         public required string ImageUrl { get; set; }
-        public Guid UserID { get; set; }
+        public Guid UserId { get; set; }
         public required virtual User User { get; set; }
     }
 }

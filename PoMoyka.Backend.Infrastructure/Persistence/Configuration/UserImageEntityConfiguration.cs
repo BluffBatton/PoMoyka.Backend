@@ -21,7 +21,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
             
             builder.HasOne(ui => ui.User)
                 .WithOne(u => u.UserImage)
-                .HasForeignKey<UserImage>(ui => ui.UserID)
+                .HasForeignKey<UserImage>(ui => ui.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

@@ -29,11 +29,11 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
 
             builder.HasMany(u => u.Statements)
                 .WithOne(s => s.User)
-                .HasForeignKey(s => s.UserID)
+                .HasForeignKey(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(u => u.Bookings)
                 .WithOne(b => b.User)
-                .HasForeignKey(b => b.UserID)
+                .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

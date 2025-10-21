@@ -1,15 +1,16 @@
 ﻿using MediatR;
 using PoMoyka.Backend.Application.Interfaces;
-using PoMoyka.Backend.Contracts.DTOs.UserDTOs;
+using PoMoyka.Backend.Contracts.DTOs.CreateDTOs;
 using PoMoyka.Backend.Domain.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PoMoyka.Backend.Contracts.DTOs.AuthDTOs;
 
 namespace PoMoyka.Backend.Application.Services.Auth.Register
 {
     public class RegisterUserCommand : IRequest<Guid>
     {
-        public UserCreateDto User { get; set; }
+        public RegisterDto Register { get; set; }
     }
 
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Guid>
@@ -25,20 +26,27 @@ namespace PoMoyka.Backend.Application.Services.Auth.Register
 
         public async Task<Guid> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            // Check if user with same email already exists
+
             var userExists = await _context.Users
-                .AnyAsync(u => u.Email == request.User.Email, cancellationToken);
+                .AnyAsync(u => u.Email == request.Register.User.Email, cancellationToken);
 
             if (userExists)
-                throw new InvalidOperationException($"User with email {request.User.Email} already exists");
+                throw new InvalidOperationException($"User with email {request.Register.User.Email} already exists");
 
             // Create user
-            var user = _mapper.Map<User>(request.User);
+            var user = _mapper.Map<User>(request.Register.User);
 
             // Hash password using BCrypt
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.User.PasswordHash);
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Register.User.PasswordHash);
 
             await _context.Users.AddAsync(user, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            // Create car with required properties
+            var car = _mapper.Map<Car>(request.Register.Car);
+            car.UserId = user.Id;
+
+            await _context.Cars.AddAsync(car, cancellationToken); 
             await _context.SaveChangesAsync(cancellationToken);
 
             return user.Id;

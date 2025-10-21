@@ -1,6 +1,6 @@
 ﻿using PoMoyka.Backend.Contracts.DTOs.Enums;
 
-namespace PoMoyka.Backend.Contracts.DTOs.UserDTOs
+namespace PoMoyka.Backend.Contracts.DTOs.CreateDTOs
 {
     public class UserCreateDto
     {
@@ -9,6 +9,5 @@ namespace PoMoyka.Backend.Contracts.DTOs.UserDTOs
         public string LastName { get; set; }
         public Role Role { get; set; }
         public string PasswordHash { get; set; }
-        public bool IsEmailConfirmed { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace PoMoyka.Backend.Domain.Entities
 
         // Поля для авторизации
         public DateTime? LastLoginAt { get; set; }
-        public bool IsEmailConfirmed { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
 

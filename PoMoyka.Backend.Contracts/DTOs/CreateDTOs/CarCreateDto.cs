@@ -1,13 +1,14 @@
 ﻿using PoMoyka.Backend.Contracts.DTOs.Enums;
-using System.ComponentModel.DataAnnotations;
 
-namespace PoMoyka.Backend.Contracts.DTOs.CarDTOs
+namespace PoMoyka.Backend.Contracts.DTOs.CreateDTOs
 {
-    public class RegisterCarDTO
+    public class CarCreateDto
     {
         public string Name { get; set; }
 
         public string LicensePlate { get; set; }
         public CarType CarType { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

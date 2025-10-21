@@ -5,6 +5,9 @@ using PoMoyka.Backend.Application;
 using PoMoyka.Backend.Infrastructure.Persistence;
 using PoMoyka.Backend.Infrastructure.Integration;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 
 namespace PoMoyka.Backend.API
@@ -21,10 +24,18 @@ namespace PoMoyka.Backend.API
                 .AddInfrastructureIntegration(builder.Configuration);
 
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(
+                        new JsonStringEnumConverter(JsonNamingPolicy.CamelCase, allowIntegerValues: true)
+                    );
+                });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

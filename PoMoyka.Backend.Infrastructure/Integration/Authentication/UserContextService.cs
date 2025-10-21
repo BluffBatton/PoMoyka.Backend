@@ -19,8 +19,8 @@ namespace PoMoyka.Backend.Infrastructure.Integration.Authentication
         /// </summary>
         public Guid? GetCurrentUserId()
         {
-            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
-            return userIdClaim != null ? Guid.Parse(userIdClaim.Value) : null;
+            var UserIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
+            return UserIdClaim != null ? Guid.Parse(UserIdClaim.Value) : null;
         }
 
         public ClaimsPrincipal? GetCurrentUser()

@@ -5,7 +5,7 @@ namespace PoMoyka.Backend.Domain.Entities
 {
     public class Statement : BaseEntity
     {
-        public Guid UserID { get; set; }
+        public Guid UserId { get; set; }
         public required virtual User User { get; set; }
         public required string Topic { get; set; }
         public required string Message { get; set; }

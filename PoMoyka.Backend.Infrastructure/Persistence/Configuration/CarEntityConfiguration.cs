@@ -23,7 +23,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
                 .IsRequired();
             builder.HasOne(c => c.User)
                 .WithOne(u => u.Car)
-                .HasForeignKey<Car>(c => c.UserID)
+                .HasForeignKey<Car>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
