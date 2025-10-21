@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using PoMoyka.Backend.Application;
 using PoMoyka.Backend.Infrastructure.Persistence;
 using PoMoyka.Backend.Infrastructure.Integration;
-using System.Reflection;
 using System.Text;
 
 
