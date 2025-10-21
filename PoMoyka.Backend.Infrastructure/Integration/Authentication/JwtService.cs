@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PoMoyka.Backend.Application.Interfaces;
 using PoMoyka.Backend.Domain.Entities;
@@ -7,37 +7,39 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PoMoyka.Backend.Infrastructure.Persistence.Integration.Authentication
+
+namespace PoMoyka.Backend.Infrastructure.Integration.Authentication
 {
     public class JwtService : IJwtService
     {
         private readonly IConfiguration _configuration;
         private readonly TokenValidationParameters _tokenValidationParameters;
+
         public JwtService(IConfiguration configuration)
         {
             _configuration = configuration;
             _tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = true,
                 ValidateAudience = true,
-                ValidateLifetime = true,
+                ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])),
+                ValidateLifetime = true,
                 ValidIssuer = _configuration["Jwt:Issuer"],
-                ValidAudience = _configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty)),
-                ClockSkew = TimeSpan.Zero
+                ValidAudience = _configuration["Jwt:Audience"]
             };
         }
+
         public string GenerateAccessToken(User user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+                new Claim(ClaimTypes.Name, $"{user.FirstName } {user.LastName}"),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
@@ -54,10 +56,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Integration.Authentication
 
         public string GenerateRefreshToken()
         {
-            var randomNumber = new byte[64];
-            using var rng = RandomNumberGenerator.Create();
-            rng.GetBytes(randomNumber);
-            return Convert.ToBase64String(randomNumber);
+            return Guid.NewGuid().ToString();
         }
 
         public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
@@ -67,7 +66,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Integration.Authentication
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty)),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])),
                 ValidateLifetime = false,
                 ValidIssuer = _configuration["Jwt:Issuer"],
                 ValidAudience = _configuration["Jwt:Audience"]
@@ -92,12 +91,6 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Integration.Authentication
             }
         }
 
-        public string? GetUserIdFromToken(string token)
-        {
-            var principal = GetPrincipalFromExpiredToken(token);
-            return principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        }
-
         public bool ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -110,6 +103,12 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Integration.Authentication
             {
                 return false;
             }
+        }
+
+        public string GetUserIdFromToken(string token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token);
+            return principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }

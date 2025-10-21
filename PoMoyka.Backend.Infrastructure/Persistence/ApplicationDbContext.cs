@@ -16,6 +16,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TypeService> TypeServices { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<UserImage> UserImages { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

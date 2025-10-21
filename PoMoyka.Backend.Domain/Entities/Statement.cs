@@ -9,6 +9,6 @@ namespace PoMoyka.Backend.Domain.Entities
         public required virtual User User { get; set; }
         public required string Topic { get; set; }
         public required string Message { get; set; }
-        public StatementStatus status { get; set; } = StatementStatus.Unread;
+        public StatementStatus Status { get; set; } = StatementStatus.Unread;
     }
 }

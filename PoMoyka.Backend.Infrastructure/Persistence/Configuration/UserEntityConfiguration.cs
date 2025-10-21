@@ -24,27 +24,17 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
                 .IsUnique();
             builder.Property(u => u.PasswordHash)
                 .IsRequired();
-            builder.Property(u => u.AvatarPath)
-                .HasMaxLength(255);
             builder.Property(u => u.Role)
                 .IsRequired();
 
             builder.HasMany(u => u.Statements)
                 .WithOne(s => s.User)
                 .HasForeignKey(s => s.UserID)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(u => u.Bookings)
                 .WithOne(b => b.User)
                 .HasForeignKey(b => b.UserID)
-                .OnDelete(DeleteBehavior.SetNull);
-            builder.HasOne(u => u.Car)
-                .WithOne(c => c.User)
-                .HasForeignKey<Car>(c => c.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(u => u.Center)
-                .WithOne(c => c.User)
-                .HasForeignKey<Center>(c => c.UserID)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

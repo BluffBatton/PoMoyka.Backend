@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PoMoyka.Backend.Application;
 using PoMoyka.Backend.Infrastructure.Persistence;
+using PoMoyka.Backend.Infrastructure.Integration;
 using System.Reflection;
 using System.Text;
 
@@ -15,14 +16,12 @@ namespace PoMoyka.Backend.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //builder.Services.AddPersistence(builder.Configuration);
-            //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-            ////var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            //// Add services to the container.
-            //builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            builder.Services.AddApplication().AddPersistence(builder.Configuration);
+            builder.Services
+                .AddApplication()
+                .AddPersistence(builder.Configuration)
+                .AddInfrastructureIntegration(builder.Configuration);
 
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

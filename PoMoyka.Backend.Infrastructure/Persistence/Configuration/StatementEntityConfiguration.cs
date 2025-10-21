@@ -17,7 +17,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
             builder.Property(s => s.Message)
                 .IsRequired()
                 .HasMaxLength(2000);
-            builder.Property(s => s.status)
+            builder.Property(s => s.Status)
                 .IsRequired();
         }
     }

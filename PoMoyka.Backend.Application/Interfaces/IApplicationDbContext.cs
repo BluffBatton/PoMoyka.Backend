@@ -15,6 +15,7 @@ namespace PoMoyka.Backend.Application.Interfaces
          DbSet<Transaction> Transactions { get;  }
          DbSet<TypeService> TypeServices { get;  }
          DbSet<Rating> Ratings { get;  }
+         DbSet<UserImage> UserImages { get;  }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PoMoyka.Backend.Application.Interfaces;
-using PoMoyka.Backend.Infrastructure.Persistence.Integration.Authentication;
 namespace PoMoyka.Backend.Infrastructure.Persistence
 {
     public static class DependencyInjection
@@ -16,7 +15,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence
             });
             services.AddScoped<IApplicationDbContext>(provider =>
                 provider.GetService<ApplicationDbContext>());
-            services.AddScoped<IJwtService, JwtService>();
+
             return services;
         }
     }

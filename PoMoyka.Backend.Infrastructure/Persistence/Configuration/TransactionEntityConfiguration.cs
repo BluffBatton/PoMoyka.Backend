@@ -16,7 +16,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
             builder.HasOne(t => t.Booking)
                 .WithOne(b => b.Transaction)
                 .HasForeignKey<Transaction>(t => t.BookingID)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(t => t.Rating)
                 .WithOne(r => r.Transaction)
                 .HasForeignKey<Rating>(r => r.TransactionID);

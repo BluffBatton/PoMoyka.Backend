@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PoMoyka.Backend.Domain\PoMoyka.Backend.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

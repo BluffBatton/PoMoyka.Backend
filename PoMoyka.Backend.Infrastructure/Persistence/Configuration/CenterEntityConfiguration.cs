@@ -25,7 +25,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
             builder.HasOne(c => c.User)
                 .WithOne(u => u.Center)
                 .HasForeignKey<Center>(c => c.UserID)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
             builder.HasMany(c => c.CenterServices)
                 .WithOne(cs => cs.Center)
                 .HasForeignKey(cs => cs.CenterID)
