@@ -9,6 +9,6 @@ namespace PoMoyka.Backend.Domain.Entities
         public required string Name { get; set; }
         public required string LicensePlate { get; set; }
         public Guid UserId { get; set; }
-        public required virtual User User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

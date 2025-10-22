@@ -42,9 +42,12 @@ namespace PoMoyka.Backend.Application.Services.Auth.Register
             await _context.Users.AddAsync(user, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
+            var userFromDb = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == request.Register.User.Email, cancellationToken);
+
             // Create car with required properties
             var car = _mapper.Map<Car>(request.Register.Car);
-            car.UserId = user.Id;
+            car.UserId = userFromDb.Id;
 
             await _context.Cars.AddAsync(car, cancellationToken); 
             await _context.SaveChangesAsync(cancellationToken);
