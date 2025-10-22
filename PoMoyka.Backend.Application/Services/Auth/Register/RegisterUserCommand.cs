@@ -34,7 +34,7 @@ namespace PoMoyka.Backend.Application.Services.Auth.Register
                 throw new InvalidOperationException($"User with email {request.Register.User.Email} already exists");
 
             // Create user
-            var user = _mapper.Map<User>(request.Register.User);
+            var user = _mapper.Map<PoMoyka.Backend.Domain.Entities.User>(request.Register.User);
 
             // Hash password using BCrypt
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Register.User.PasswordHash);
