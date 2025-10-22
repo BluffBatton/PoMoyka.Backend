@@ -12,8 +12,8 @@ using PoMoyka.Backend.Infrastructure.Persistence;
 namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251019224527_UpdatedEntitiesAndDeleteBehaviors")]
-    partial class UpdatedEntitiesAndDeleteBehaviors
+    [Migration("20251022163141_Update4")]
+    partial class Update4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -324,9 +324,6 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
-
-                    b.Property<bool>("IsEmailConfirmed")
-                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastLoginAt")
                         .HasColumnType("timestamp with time zone");

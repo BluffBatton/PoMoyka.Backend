@@ -62,7 +62,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 nullable: true);
 
             migrationBuilder.AlterColumn<Guid>(
-                name: "UserID",
+                name: "UserId",
                 table: "Centers",
                 type: "uuid",
                 nullable: true,
@@ -76,7 +76,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     ImageUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    UserID = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -85,7 +85,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     table.PrimaryKey("PK_UserImages", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserImages_Users_UserID",
-                        column: x => x.UserID,
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -94,13 +94,13 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UserImages_UserID",
                 table: "UserImages",
-                column: "UserID",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Bookings_Users_UserID",
                 table: "Bookings",
-                column: "UserID",
+                column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -108,7 +108,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Centers_Users_UserID",
                 table: "Centers",
-                column: "UserID",
+                column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.SetNull);
@@ -116,7 +116,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Statements_Users_UserID",
                 table: "Statements",
-                column: "UserID",
+                column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -181,7 +181,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 nullable: true);
 
             migrationBuilder.AlterColumn<Guid>(
-                name: "UserID",
+                name: "UserId",
                 table: "Centers",
                 type: "uuid",
                 nullable: false,
@@ -193,7 +193,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Bookings_Users_UserID",
                 table: "Bookings",
-                column: "UserID",
+                column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.SetNull);
@@ -201,7 +201,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Centers_Users_UserID",
                 table: "Centers",
-                column: "UserID",
+                column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -209,7 +209,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Statements_Users_UserID",
                 table: "Statements",
-                column: "UserID",
+                column: "UserId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.SetNull);

@@ -74,7 +74,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     CarType = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     LicensePlate = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    UserID = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -83,7 +83,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     table.PrimaryKey("PK_Cars", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Cars_Users_UserID",
-                        column: x => x.UserID,
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -98,7 +98,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     Address = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Latitude = table.Column<double>(type: "double precision", maxLength: 50, nullable: false),
                     Longitude = table.Column<double>(type: "double precision", maxLength: 50, nullable: false),
-                    UserID = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -107,7 +107,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     table.PrimaryKey("PK_Centers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Centers_Users_UserID",
-                        column: x => x.UserID,
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -118,7 +118,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserID = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Topic = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Message = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: false),
@@ -130,7 +130,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     table.PrimaryKey("PK_Statements", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Statements_Users_UserID",
-                        column: x => x.UserID,
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
@@ -171,7 +171,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     BookedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    UserID = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CenterServiceID = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -187,7 +187,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Bookings_Users_UserID",
-                        column: x => x.UserID,
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
@@ -243,7 +243,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_UserID",
                 table: "Bookings",
-                column: "UserID");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_LicensePlate",
@@ -254,13 +254,13 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_UserID",
                 table: "Cars",
-                column: "UserID",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Centers_UserID",
                 table: "Centers",
-                column: "UserID",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -282,7 +282,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Statements_UserID",
                 table: "Statements",
-                column: "UserID");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BookingID",

@@ -46,14 +46,14 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CenterServiceID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -83,7 +83,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -91,7 +91,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.HasIndex("LicensePlate")
                         .IsUnique();
 
-                    b.HasIndex("UserID")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Cars");
@@ -127,12 +127,12 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserID")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Centers");
@@ -242,7 +242,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("status")
@@ -250,7 +250,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Statements");
                 });
@@ -362,7 +362,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 
                     b.HasOne("PoMoyka.Backend.Domain.Entities.User", "User")
                         .WithMany("Bookings")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
@@ -375,7 +375,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.User", "User")
                         .WithOne("Car")
-                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Car", "UserID")
+                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Car", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -386,7 +386,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.User", "User")
                         .WithOne("Center")
-                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Center", "UserID")
+                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Center", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -427,7 +427,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.User", "User")
                         .WithMany("Statements")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
