@@ -90,7 +90,7 @@ namespace PoMoyka.Backend.API
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseCors("AllowAllOrigins");
 
