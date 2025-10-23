@@ -46,7 +46,7 @@ namespace PoMoyka.Backend.Application.Services.Auth.Register
                 .FirstOrDefaultAsync(u => u.Email == request.Register.User.Email, cancellationToken);
 
             // Create car with required properties
-            var car = _mapper.Map<Car>(request.Register.Car);
+            var car = _mapper.Map<PoMoyka.Backend.Domain.Entities.Car>(request.Register.Car);
             car.UserId = userFromDb.Id;
 
             await _context.Cars.AddAsync(car, cancellationToken); 
