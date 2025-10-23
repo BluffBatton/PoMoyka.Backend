@@ -12,8 +12,8 @@ using PoMoyka.Backend.Infrastructure.Persistence;
 namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251022144447_Initial")]
-    partial class Initial
+    [Migration("20251022163615_update6")]
+    partial class update6
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
