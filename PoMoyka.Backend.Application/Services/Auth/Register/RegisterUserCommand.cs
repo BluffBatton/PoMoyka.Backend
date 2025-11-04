@@ -38,6 +38,7 @@ namespace PoMoyka.Backend.Application.Services.Auth.Register
 
             // Hash password using BCrypt
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Register.User.PasswordHash);
+            user.CreatedAt = DateTime.UtcNow;
 
             await _context.Users.AddAsync(user, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
@@ -48,6 +49,7 @@ namespace PoMoyka.Backend.Application.Services.Auth.Register
             // Create car with required properties
             var car = _mapper.Map<PoMoyka.Backend.Domain.Entities.Car>(request.Register.Car);
             car.UserId = userFromDb.Id;
+            car.CreatedAt = DateTime.UtcNow;
 
             await _context.Cars.AddAsync(car, cancellationToken); 
             await _context.SaveChangesAsync(cancellationToken);
