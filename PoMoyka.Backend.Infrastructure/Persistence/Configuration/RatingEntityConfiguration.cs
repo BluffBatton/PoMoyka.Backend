@@ -15,7 +15,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
                 .IsRequired();
             builder.HasOne(r => r.Transaction)
                 .WithOne(t => t.Rating)
-                .HasForeignKey<Rating>(r => r.TransactionID)
+                .HasForeignKey<Rating>(r => r.TransactionId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

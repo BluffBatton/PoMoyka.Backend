@@ -59,6 +59,8 @@ namespace PoMoyka.Backend.Application.Services.User
                 user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.PasswordHash);
             }
 
+            user.UpdatedAt = DateTime.UtcNow;
+
             await _context.SaveChangesAsync(cancellationToken);
 
         }

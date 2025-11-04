@@ -31,7 +31,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("BookedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CenterServiceID")
+                    b.Property<Guid>("CenterServiceId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
@@ -48,7 +48,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CenterServiceID");
+                    b.HasIndex("CenterServiceId");
 
                     b.HasIndex("UserId");
 
@@ -141,7 +141,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CenterID")
+                    b.Property<Guid>("CenterId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
@@ -150,7 +150,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<Guid>("TypeServiceID")
+                    b.Property<Guid>("TypeServiceId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -158,9 +158,9 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CenterID");
+                    b.HasIndex("CenterId");
 
-                    b.HasIndex("TypeServiceID");
+                    b.HasIndex("TypeServiceId");
 
                     b.ToTable("CenterServices");
                 });
@@ -177,7 +177,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<int>("RatingNumber")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("TransactionID")
+                    b.Property<Guid>("TransactionId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -185,7 +185,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TransactionID")
+                    b.HasIndex("TransactionId")
                         .IsUnique();
 
                     b.ToTable("Ratings");
@@ -261,7 +261,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
-                    b.Property<Guid>("BookingID")
+                    b.Property<Guid>("BookingId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
@@ -272,7 +272,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookingID")
+                    b.HasIndex("BookingId")
                         .IsUnique();
 
                     b.ToTable("Transactions");
@@ -290,7 +290,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ServiceID")
+                    b.Property<Guid>("ServiceId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -298,7 +298,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceID");
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("TypeServices");
                 });
@@ -391,7 +391,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.CenterService", "CenterService")
                         .WithMany("Bookings")
-                        .HasForeignKey("CenterServiceID")
+                        .HasForeignKey("CenterServiceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -431,13 +431,13 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.Center", "Center")
                         .WithMany("CenterServices")
-                        .HasForeignKey("CenterID")
+                        .HasForeignKey("CenterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PoMoyka.Backend.Domain.Entities.TypeService", "TypeService")
                         .WithMany("CenterServices")
-                        .HasForeignKey("TypeServiceID")
+                        .HasForeignKey("TypeServiceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -450,7 +450,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.Transaction", "Transaction")
                         .WithOne("Rating")
-                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Rating", "TransactionID")
+                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Rating", "TransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -472,7 +472,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.Booking", "Booking")
                         .WithOne("Transaction")
-                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Transaction", "BookingID")
+                        .HasForeignKey("PoMoyka.Backend.Domain.Entities.Transaction", "BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -483,7 +483,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("PoMoyka.Backend.Domain.Entities.Service", "Service")
                         .WithMany("TypeServices")
-                        .HasForeignKey("ServiceID")
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

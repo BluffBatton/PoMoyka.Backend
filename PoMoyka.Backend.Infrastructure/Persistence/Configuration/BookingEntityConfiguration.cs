@@ -17,7 +17,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
                 .IsRequired();
             builder.HasOne(b => b.CenterService)
                 .WithMany(cs => cs.Bookings)
-                .HasForeignKey(b => b.CenterServiceID)
+                .HasForeignKey(b => b.CenterServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

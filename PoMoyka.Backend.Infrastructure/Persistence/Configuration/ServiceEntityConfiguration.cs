@@ -18,7 +18,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
                 .HasMaxLength(500);
             builder.HasMany(s => s.TypeServices)
                 .WithOne(ts => ts.Service)
-                .HasForeignKey(ts => ts.ServiceID)
+                .HasForeignKey(ts => ts.ServiceId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

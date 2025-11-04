@@ -4,7 +4,7 @@ namespace PoMoyka.Backend.Application.Common.Mappings.CreateDTOMappings
 {
     public class ServiceCreateMapping : AutoMapper.Profile
     {
-        ServiceCreateMapping()
+        public ServiceCreateMapping()
         {
             CreateMap<ServiceCreateDto, ServiceCreateDto>();
         }

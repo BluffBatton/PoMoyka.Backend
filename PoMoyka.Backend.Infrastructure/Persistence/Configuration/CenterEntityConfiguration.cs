@@ -28,7 +28,7 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
                 .OnDelete(DeleteBehavior.SetNull);
             builder.HasMany(c => c.CenterServices)
                 .WithOne(cs => cs.Center)
-                .HasForeignKey(cs => cs.CenterID)
+                .HasForeignKey(cs => cs.CenterId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

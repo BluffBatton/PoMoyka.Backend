@@ -9,7 +9,7 @@ namespace PoMoyka.Backend.Domain.Entities
         public BookingStatus Status { get; set; }
         public Guid UserId { get; set; }
         public required virtual User User { get; set; }
-        public Guid CenterServiceID { get; set; } 
+        public Guid CenterServiceId { get; set; } 
         public required virtual CenterService CenterService { get; set; }
 
         public virtual Transaction? Transaction { get; set; }

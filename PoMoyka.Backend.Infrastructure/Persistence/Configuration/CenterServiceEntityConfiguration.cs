@@ -15,11 +15,11 @@ namespace PoMoyka.Backend.Infrastructure.Persistence.Configuration
                 .IsRequired();
             builder.HasOne(cs => cs.Center)
                 .WithMany(c => c.CenterServices)
-                .HasForeignKey(cs => cs.CenterID)
+                .HasForeignKey(cs => cs.CenterId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(cs => cs.TypeService)
                 .WithMany(ts => ts.CenterServices)
-                .HasForeignKey(cs => cs.TypeServiceID)
+                .HasForeignKey(cs => cs.TypeServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
 
