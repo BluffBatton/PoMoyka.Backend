@@ -6,11 +6,11 @@ using PoMoyka.Backend.Contracts.DTOs.CreateDTOs;
 
 namespace PoMoyka.Backend.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CentersController : BaseController
     {
         [HttpPost]
-        public async Task<IActionResult> CreateCenter([FromBody] CenterCreateDto dto)
+        public async Task<IActionResult> CreateCenter([FromBody] СenterCreateDto dto)
         {
             var command = new CreateCenterCommand(dto);
             var centerId = await Mediator.Send(command);

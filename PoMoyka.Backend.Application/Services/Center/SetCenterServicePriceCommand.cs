@@ -29,18 +29,18 @@ namespace PoMoyka.Backend.Application.Services.Center
 
         public async Task<Guid> Handle(SetCenterServicePriceCommand request, CancellationToken cancellationToken)
         {
-            var existingPrice = await _context.CenterServices
-                .FirstOrDefaultAsync(cs =>
-                cs.CenterId == request.Dto.CenterId &&
-                cs.TypeServiceId == request.Dto.TypeServiceId,
-                cancellationToken);
+            //var existingPrice = await _context.CenterServices
+            //    .FirstOrDefaultAsync(cs =>
+            //    cs.CenterId == request.Dto.CenterId &&
+            //    cs.TypeServiceId == request.Dto.TypeServiceId,
+            //    cancellationToken);
 
-            if (existingPrice == null) 
-            {
-                existingPrice.Price = request.Dto.Price;
-                await _context.SaveChangesAsync(cancellationToken);
-                return existingPrice.Id;
-            }
+            //if (existingPrice == null) 
+            //{
+            //    existingPrice.Price = request.Dto.Price;
+            //    await _context.SaveChangesAsync(cancellationToken);
+            //    return existingPrice.Id;
+            //}
 
             var newPriceEntry = _mapper.Map<CenterService>(request.Dto);
 

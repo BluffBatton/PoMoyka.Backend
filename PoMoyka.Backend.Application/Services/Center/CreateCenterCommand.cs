@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
-using PoMoyka.Backend.Application.Common.Mappings.CreateDTOMappings;
 using PoMoyka.Backend.Application.Interfaces;
+using PoMoyka.Backend.Contracts.DTOs.CreateDTOs;
 using PoMoyka.Backend.Domain.Entities;
 
 namespace PoMoyka.Backend.Application.Services.Center
 {
     public class CreateCenterCommand : IRequest<Guid>
     {
-        public CenterCreateDto Dto { get; }
-        public CreateCenterCommand(CenterCreateDto dto) 
+        public СenterCreateDto Dto { get; }
+        public CreateCenterCommand(СenterCreateDto dto) 
         {
             Dto = dto;
         }

@@ -3,11 +3,11 @@ using PoMoyka.Backend.Domain.Entities;
 
 namespace PoMoyka.Backend.Application.Common.Mappings.CreateDTOMappings
 {
-    public class ServiceCreateMapping : AutoMapper.Profile
+    public class CenterServicePriceMapping : AutoMapper.Profile
     {
-        public ServiceCreateMapping()
+        public CenterServicePriceMapping() 
         {
-            CreateMap<ServiceCreateDto, Service>();
+            CreateMap<CenterServicePriceDto, CenterService>();
         }
     }
 }
