@@ -8,9 +8,9 @@ namespace PoMoyka.Backend.Domain.Entities
         public DateTime BookedTime { get; set; }
         public BookingStatus Status { get; set; }
         public Guid UserId { get; set; }
-        public required virtual User User { get; set; }
+        public virtual User User { get; set; }
         public Guid CenterServiceId { get; set; } 
-        public required virtual CenterService CenterService { get; set; }
+        public virtual CenterService CenterService { get; set; }
 
         public virtual Transaction? Transaction { get; set; }
     }

@@ -29,6 +29,7 @@ namespace PoMoyka.Backend.Application.Services.Service
         public async Task<Guid> Handle(CreateTypeServiceCommand request, CancellationToken cancellationToken)
         {
             var newTypeService = _mapper.Map<TypeService>(request.Dto);
+            newTypeService.CreatedAt = DateTime.UtcNow;
 
             await _context.TypeServices.AddAsync(newTypeService, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);

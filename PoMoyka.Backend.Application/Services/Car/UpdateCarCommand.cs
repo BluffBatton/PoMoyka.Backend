@@ -55,6 +55,7 @@ namespace PoMoyka.Backend.Application.Services.Car
             {
                 car.CarType = (Domain.Enums.CarType)dto.CarType.Value;
             }
+            car.CreatedAt = DateTime.UtcNow;
 
             await _context.SaveChangesAsync(cancellationToken);
         }
