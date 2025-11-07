@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using PoMoyka.Backend.Infrastructure.Integration.Authentication;
+using PoMoyka.Backend.Infrastructure.Integration.External;
 
 namespace PoMoyka.Backend.Infrastructure.Integration
 {
@@ -12,7 +13,7 @@ namespace PoMoyka.Backend.Infrastructure.Integration
             // Регистрируем сервисы
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUserContextService, UserContextService>();
-
+            services.AddScoped<ILiqPayService, LiqPayService>();
             return services;
         }
     }

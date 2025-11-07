@@ -28,6 +28,7 @@ namespace PoMoyka.Backend.Application.Services.Center
         public async Task<Guid> Handle(CreateCenterCommand request, CancellationToken cancellationToken)
         {
             var newCenter = _mapper.Map<Domain.Entities.Center>(request.Dto);
+            newCenter.CreatedAt = DateTime.UtcNow;
 
             await _context.Centers.AddAsync(newCenter, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
