@@ -2,17 +2,16 @@
 using MediatR;
 using PoMoyka.Backend.Application.Interfaces;
 using PoMoyka.Backend.Contracts.DTOs.CreateDTOs;
-using PoMoyka.Backend.Domain.Entities;
 
-namespace PoMoyka.Backend.Application.Services.Service
+namespace PoMoyka.Backend.Application.Services.TypeService
 {
     public class CreateTypeServiceCommand : IRequest<Guid>
     {
         public TypeServiceCreateDto Dto { get; }
 
-        public CreateTypeServiceCommand(TypeServiceCreateDto dto) 
+        public CreateTypeServiceCommand(TypeServiceCreateDto dto)
         {
-            Dto = dto; 
+            Dto = dto;
         }
     }
 
@@ -28,7 +27,7 @@ namespace PoMoyka.Backend.Application.Services.Service
 
         public async Task<Guid> Handle(CreateTypeServiceCommand request, CancellationToken cancellationToken)
         {
-            var newTypeService = _mapper.Map<TypeService>(request.Dto);
+            var newTypeService = _mapper.Map<Domain.Entities.TypeService>(request.Dto);
             newTypeService.CreatedAt = DateTime.UtcNow;
 
             await _context.TypeServices.AddAsync(newTypeService, cancellationToken);

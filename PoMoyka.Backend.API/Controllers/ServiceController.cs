@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PoMoyka.Backend.Application.Services.Service;
 using PoMoyka.Backend.Contracts.DTOs.CreateDTOs;
 using PoMoyka.Backend.Contracts.DTOs.ReadingDTOs;
+using PoMoyka.Backend.Contracts.DTOs.UpdateDTOs;
 
 namespace PoMoyka.Backend.API.Controllers
 {
@@ -11,6 +11,7 @@ namespace PoMoyka.Backend.API.Controllers
     public class ServiceController : BaseController
     {
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] ServiceCreateDto dto)
         {
             var command = new CreateServiceCommand { service = dto };
@@ -34,20 +35,22 @@ namespace PoMoyka.Backend.API.Controllers
             return Ok(serviceDto);
         }
 
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] ServiceUpdateDto dto)
+        {
+            var command = new UpdateServiceCommand(id, dto);
+            await Mediator.Send(command);
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var command = new DeleteServiceCommand { Id = id };
             await Mediator.Send(command);
-            return Ok(command);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateTypeService([FromBody] TypeServiceCreateDto dto)
-        {
-            var command = new CreateTypeServiceCommand(dto);
-            var typeServiceId = await Mediator.Send(command);
-            return Ok(typeServiceId);
+            return NoContent();
         }
     }
 }
