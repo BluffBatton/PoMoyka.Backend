@@ -32,27 +32,57 @@ namespace PoMoyka.Backend.Application.Services.Booking
         public async Task<PaymentResponseDto> Handle(CreateBookingCommand request, CancellationToken cancellationToken)
         {
             var userId = _userContextService.GetCurrentUserId();
+            if (!userId.HasValue || userId == Guid.Empty)
+            {
+                throw new UnauthorizedAccessException("User is not authenticated");
+            }
+
             var dto = request.CreateBookingDto;
 
+            // Валидация времени бронирования
+            if (dto.BookedTime < DateTime.UtcNow)
+            {
+                throw new Exception("Booked time cannot be in the past");
+            }
+
+            // Проверка существования услуги
             var centerService = await _context.CenterServices
                 .AsNoTracking()
-                .Include(cs => cs.TypeService.Service)
+                .Include(cs => cs.TypeService)
+                    .ThenInclude(ts => ts.Service)
+                .Include(cs => cs.Center)
                 .FirstOrDefaultAsync(cs => cs.Id == dto.CenterServiceId, cancellationToken);
+
+            if (centerService == null)
+            {
+                throw new Exception($"CenterService with ID {dto.CenterServiceId} not found");
+            }
+
+            // Опциональная проверка на конфликт времени (можно раскомментировать если нужно)
+            // var conflictingBooking = await _context.Bookings
+            //     .AnyAsync(b => 
+            //         b.CenterServiceId == dto.CenterServiceId && 
+            //         b.BookedTime == dto.BookedTime && 
+            //         b.Status != BookingStatus.Cancelled,
+            //         cancellationToken);
+            // 
+            // if (conflictingBooking)
+            // {
+            //     throw new Exception("This time slot is already booked");
+            // }
 
             var booking = new Domain.Entities.Booking
             {
                 CenterServiceId = dto.CenterServiceId,
                 BookedTime = dto.BookedTime,
                 UserId = userId.Value,
-                Status = BookingStatus.Done
+                Status = BookingStatus.Waiting, // Ожидание оплаты
+                CreatedAt = DateTime.UtcNow
             };
 
-            booking.CreatedAt = DateTime.UtcNow;
-
-            string description = $"Payed services '{centerService.TypeService.Service.Name}' on {dto.BookedTime.ToShortDateString()}";
+            string description = $"Service '{centerService.TypeService.Service.Name}' at {centerService.Center.Name} on {dto.BookedTime:dd.MM.yyyy HH:mm}";
 
             await _context.Bookings.AddAsync(booking, cancellationToken);
-
             await _context.SaveChangesAsync(cancellationToken);
 
             (string data, string signature) = _liqPayService.GeneratePaymentData(

@@ -1,4 +1,4 @@
-﻿namespace PoMoyka.Backend.Application.Services.Callback
+﻿namespace PoMoyka.Backend.Contracts.DTOs.AuthDTOs
 {
     public class LiqPayCallbackDto
     {

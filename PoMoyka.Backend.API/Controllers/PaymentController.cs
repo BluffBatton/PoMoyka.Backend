@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PoMoyka.Backend.Application.Services.Callback;
+using PoMoyka.Backend.Contracts.DTOs.AuthDTOs;
 using PoMoyka.Backend.Application.Services.Payment;
 
 namespace PoMoyka.Backend.API.Controllers
