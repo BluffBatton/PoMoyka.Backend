@@ -3,11 +3,11 @@ using PoMoyka.Backend.Domain.Entities;
 
 namespace PoMoyka.Backend.Application.Common.Mappings.ReadingDTOMappings
 {
-    public class CenterMapping : AutoMapper.Profile
+    public class CenterDetailedMapping : AutoMapper.Profile
     {
-        public CenterMapping()
+        public CenterDetailedMapping()
         {
-            CreateMap<Center, CenterDto>();
+            CreateMap<Center, CenterDetailedDto>();
         }
     }
 }

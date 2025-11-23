@@ -42,7 +42,7 @@ namespace PoMoyka.Backend.Application.Services.Center
             //    return existingPrice.Id;
             //}
 
-            var newPriceEntry = _mapper.Map<CenterService>(request.Dto);
+            var newPriceEntry = _mapper.Map<Domain.Entities.CenterService>(request.Dto);
             newPriceEntry.CreatedAt = DateTime.UtcNow;
 
             await _context.CenterServices.AddAsync(newPriceEntry, cancellationToken);
