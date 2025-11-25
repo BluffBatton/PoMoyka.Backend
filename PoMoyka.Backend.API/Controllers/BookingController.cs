@@ -12,7 +12,7 @@ namespace PoMoyka.Backend.API.Controllers
     public class BookingController : BaseController
     {
         [HttpPost]
-        [Authorize(Roles = "Client")]
+        [Authorize(Roles = "Admin, Client")]
         public async Task<IActionResult> Create([FromBody] BookingCreateDto dto)
         {
             var command = new CreateBookingCommand(dto);
