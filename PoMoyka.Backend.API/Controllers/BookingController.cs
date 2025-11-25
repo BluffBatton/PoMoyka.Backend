@@ -32,7 +32,7 @@ namespace PoMoyka.Backend.API.Controllers
             return Ok(bookings);
         }
 
-        [HttpGet("my")]
+        [HttpGet]
         [Authorize(Roles = "Client")]
         public async Task<ActionResult<List<BookingDetailedDto>>> GetMy([FromQuery] BookingStatus? status = null)
         {
@@ -49,7 +49,7 @@ namespace PoMoyka.Backend.API.Controllers
             return Ok(booking);
         }
 
-        [HttpPost("{id}/cancel")]
+        [HttpPost("{id}")]
         [Authorize(Roles = "Client")]
         public async Task<IActionResult> Cancel(Guid id)
         {
@@ -58,7 +58,7 @@ namespace PoMoyka.Backend.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("{id}/complete")]
+        [HttpPost("{id}")]
         [Authorize(Roles = "Employee,Admin")]
         public async Task<IActionResult> Complete(Guid id)
         {
@@ -67,7 +67,7 @@ namespace PoMoyka.Backend.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("payment-callback")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> PaymentCallback([FromBody] LiqPayCallbackDto dto)
         {
