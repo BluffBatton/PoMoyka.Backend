@@ -7,7 +7,7 @@ using PoMoyka.Backend.Contracts.DTOs.UpdateDTOs;
 
 namespace PoMoyka.Backend.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ServiceController : BaseController
     {
         [HttpPost]
