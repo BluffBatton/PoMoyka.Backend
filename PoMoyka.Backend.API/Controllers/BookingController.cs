@@ -69,6 +69,7 @@ namespace PoMoyka.Backend.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ActionName("payment-callback")]
         public async Task<IActionResult> PaymentCallback([FromBody] LiqPayCallbackDto dto)
         {
             var command = new ConfirmPaymentCommand(dto);
