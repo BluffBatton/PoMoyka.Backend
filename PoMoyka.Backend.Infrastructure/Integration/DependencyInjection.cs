@@ -6,6 +6,9 @@ using PoMoyka.Backend.Infrastructure.Integration.External;
 using Microsoft.Extensions.Options;
 using PoMoyka.Backend.Infrastructure.Integration.FileStorage;
 using Supabase;
+using PoMoyka.Backend.Infrastructure.Integration.Reports;
+using LabPort.Backend.Application.Interfaces;
+using LabPort.Backend.Infrastructure.Integration.Authentication;
 
 namespace PoMoyka.Backend.Infrastructure.Integration
 {
@@ -40,6 +43,8 @@ namespace PoMoyka.Backend.Infrastructure.Integration
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddScoped<ILiqPayService, LiqPayService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<ITopCentersReportGenerator, TopCentersReportGenerator>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             return services;
         }
