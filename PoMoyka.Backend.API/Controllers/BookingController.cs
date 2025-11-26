@@ -12,7 +12,6 @@ namespace PoMoyka.Backend.API.Controllers
     public class BookingController : BaseController
     {
         [HttpPost]
-        [Authorize(Roles = "Admin, Client")]
         public async Task<IActionResult> Create([FromBody] BookingCreateDto dto)
         {
             var command = new CreateBookingCommand(dto);
@@ -33,7 +32,7 @@ namespace PoMoyka.Backend.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Client")]
+        [Authorize(Roles = "Client,Admin")]
         public async Task<ActionResult<List<BookingDetailedDto>>> GetMy([FromQuery] BookingStatus? status = null)
         {
             var query = new GetMyBookingsQuery(status);
@@ -50,7 +49,6 @@ namespace PoMoyka.Backend.API.Controllers
         }
 
         [HttpPost("{id}")]
-        [Authorize(Roles = "Client")]
         public async Task<IActionResult> Cancel(Guid id)
         {
             var command = new CancelBookingCommand(id);
@@ -59,7 +57,6 @@ namespace PoMoyka.Backend.API.Controllers
         }
 
         [HttpPost("{id}")]
-        [Authorize(Roles = "Employee,Admin")]
         public async Task<IActionResult> Complete(Guid id)
         {
             var command = new CompleteBookingCommand(id);
