@@ -58,18 +58,18 @@ namespace PoMoyka.Backend.Application.Services.Booking
                 throw new Exception($"CenterService with ID {dto.CenterServiceId} not found");
             }
 
-            // Опциональная проверка на конфликт времени (можно раскомментировать если нужно)
-            // var conflictingBooking = await _context.Bookings
-            //     .AnyAsync(b => 
-            //         b.CenterServiceId == dto.CenterServiceId && 
-            //         b.BookedTime == dto.BookedTime && 
-            //         b.Status != BookingStatus.Cancelled,
-            //         cancellationToken);
-            // 
-            // if (conflictingBooking)
-            // {
-            //     throw new Exception("This time slot is already booked");
-            // }
+            //Опциональная проверка на конфликт времени(можно раскомментировать если нужно)
+             var conflictingBooking = await _context.Bookings
+                 .AnyAsync(b =>
+                     b.CenterServiceId == dto.CenterServiceId &&
+                     b.BookedTime == dto.BookedTime &&
+                     b.Status != BookingStatus.Cancelled,
+                     cancellationToken);
+
+            if (conflictingBooking)
+            {
+                throw new Exception("This time slot is already booked");
+            }
 
             var booking = new Domain.Entities.Booking
             {

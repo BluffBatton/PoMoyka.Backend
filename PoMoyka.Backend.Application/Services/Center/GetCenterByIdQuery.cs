@@ -31,6 +31,9 @@ namespace PoMoyka.Backend.Application.Services.Center
         {
             var center = await _context.Centers
                 .AsNoTracking()
+                .Include(c => c.CenterServices)
+                    .ThenInclude(cs => cs.TypeService)
+                        .ThenInclude(ts => ts.Service)
                 .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
             if (center == null)
@@ -38,7 +41,19 @@ namespace PoMoyka.Backend.Application.Services.Center
                 throw new Exception($"Center with ID {request.Id} not found");
             }
 
-            return _mapper.Map<CenterDetailedDto>(center);
+            var dto = _mapper.Map<CenterDetailedDto>(center);
+
+            // Загружаем услуги с ценами
+            dto.Services = center.CenterServices?.Select(cs => new PricedServiceDto
+            {
+                CenterServiceId = cs.Id,
+                ServiceName = cs.TypeService.Service.Name,
+                CarType = cs.TypeService.CarType.ToString(),
+                Price = cs.Price,
+                Description = cs.TypeService.Service.Description
+            }).ToList() ?? new List<PricedServiceDto>();
+
+            return dto;
         }
     }
 }

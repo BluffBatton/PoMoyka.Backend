@@ -10,6 +10,7 @@ namespace PoMoyka.Backend.Contracts.DTOs.ReadingDTOs
         public Guid? UserId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public List<PricedServiceDto> Services { get; set; } = new List<PricedServiceDto>();
     }
 }
 

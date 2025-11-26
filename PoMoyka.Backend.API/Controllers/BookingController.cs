@@ -12,7 +12,6 @@ namespace PoMoyka.Backend.API.Controllers
     public class BookingController : BaseController
     {
         [HttpPost]
-        [Authorize(Roles = "Client")]
         public async Task<IActionResult> Create([FromBody] BookingCreateDto dto)
         {
             var command = new CreateBookingCommand(dto);
@@ -32,8 +31,8 @@ namespace PoMoyka.Backend.API.Controllers
             return Ok(bookings);
         }
 
-        [HttpGet("my")]
-        [Authorize(Roles = "Client")]
+        [HttpGet]
+        [Authorize(Roles = "Client,Admin")]
         public async Task<ActionResult<List<BookingDetailedDto>>> GetMy([FromQuery] BookingStatus? status = null)
         {
             var query = new GetMyBookingsQuery(status);
@@ -49,8 +48,7 @@ namespace PoMoyka.Backend.API.Controllers
             return Ok(booking);
         }
 
-        [HttpPost("{id}/cancel")]
-        [Authorize(Roles = "Client")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> Cancel(Guid id)
         {
             var command = new CancelBookingCommand(id);
@@ -58,8 +56,7 @@ namespace PoMoyka.Backend.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("{id}/complete")]
-        [Authorize(Roles = "Employee,Admin")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> Complete(Guid id)
         {
             var command = new CompleteBookingCommand(id);
@@ -67,8 +64,9 @@ namespace PoMoyka.Backend.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("payment-callback")]
+        [HttpPost]
         [AllowAnonymous]
+        [ActionName("payment-callback")]
         public async Task<IActionResult> PaymentCallback([FromBody] LiqPayCallbackDto dto)
         {
             var command = new ConfirmPaymentCommand(dto);
