@@ -27,8 +27,11 @@ namespace PoMoyka.Backend.Application.Services.Statistics
 
         public async Task<TopCentersStatisticsDto> Handle(GetTopCentersStatisticsQuery request, CancellationToken cancellationToken)
         {
-            var from = request.From.Date;
-            var to = request.To.Date.AddDays(1);
+            var fromDate = request.From.Date;
+            var toDate = request.To.Date.AddDays(1);
+
+            var from = DateTime.SpecifyKind(fromDate, DateTimeKind.Utc);
+            var to = DateTime.SpecifyKind(toDate, DateTimeKind.Utc);
 
             var bookingsQuery = _context.Bookings
                 .Include(b => b.CenterService)

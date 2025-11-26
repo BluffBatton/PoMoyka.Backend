@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using QuestPDF.Infrastructure;
 
 
 namespace PoMoyka.Backend.API
@@ -17,6 +18,8 @@ namespace PoMoyka.Backend.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            QuestPDF.Settings.License = LicenseType.Community;
 
             builder.Services
                 .AddApplication()
