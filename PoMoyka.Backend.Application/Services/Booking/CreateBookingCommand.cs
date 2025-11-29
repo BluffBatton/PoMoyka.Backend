@@ -58,13 +58,16 @@ namespace PoMoyka.Backend.Application.Services.Booking
                 throw new Exception($"CenterService with ID {dto.CenterServiceId} not found");
             }
 
-            //Опциональная проверка на конфликт времени(можно раскомментировать если нужно)
-             var conflictingBooking = await _context.Bookings
-                 .AnyAsync(b =>
-                     b.CenterServiceId == dto.CenterServiceId &&
-                     b.BookedTime == dto.BookedTime &&
-                     b.Status != BookingStatus.Cancelled,
-                     cancellationToken);
+            var fromTime = dto.BookedTime.AddMinutes(-10);
+            var toTime = dto.BookedTime.AddMinutes(20);
+
+            var conflictingBooking = await _context.Bookings
+                .AnyAsync(b =>
+                    b.CenterServiceId == dto.CenterServiceId &&
+                    b.BookedTime >= fromTime &&
+                    b.BookedTime <= toTime &&
+                    b.Status == BookingStatus.Done,
+                    cancellationToken);
 
             if (conflictingBooking)
             {
