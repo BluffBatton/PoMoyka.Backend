@@ -11,6 +11,12 @@ namespace PoMoyka.Backend.API.Controllers
     [Authorize]
     public class BookingController : BaseController
     {
+        private readonly ILogger<BookingController> _logger;
+
+        public BookingController(ILogger<BookingController> logger)
+        {
+            _logger = logger;
+        }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] BookingCreateDto dto)
         {
@@ -69,9 +75,23 @@ namespace PoMoyka.Backend.API.Controllers
         [ActionName("payment-callback")]
         public async Task<IActionResult> PaymentCallback([FromBody] LiqPayCallbackDto dto)
         {
-            var command = new ConfirmPaymentCommand(dto);
-            await Mediator.Send(command);
-            return Ok();
+            _logger.LogInformation("🔔 LiqPay callback endpoint hit!");
+            _logger.LogInformation("Received callback data length: {DataLength}", dto?.Data?.Length ?? 0);
+            _logger.LogInformation("Received callback signature length: {SignatureLength}", dto?.Signature?.Length ?? 0);
+
+            try
+            {
+                var command = new ConfirmPaymentCommand(dto);
+                await Mediator.Send(command);
+                
+                _logger.LogInformation("✅ LiqPay callback processed successfully");
+                return Ok(new { success = true, message = "Callback processed" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "❌ Error processing LiqPay callback");
+                return BadRequest(new { success = false, error = ex.Message });
+            }
         }
     }
 }

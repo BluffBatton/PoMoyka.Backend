@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PoMoyka.Backend.Application.Interfaces;
 using PoMoyka.Backend.Contracts.DTOs.AuthDTOs;
 using PoMoyka.Backend.Domain.Enums;
@@ -20,23 +21,38 @@ namespace PoMoyka.Backend.Application.Services.Booking
     {
         private readonly IApplicationDbContext _context;
         private readonly ILiqPayService _liqPayService;
+        private readonly ILogger<ConfirmPaymentCommandHandler> _logger;
 
-        public ConfirmPaymentCommandHandler(IApplicationDbContext context, ILiqPayService liqPayService)
+        public ConfirmPaymentCommandHandler(
+            IApplicationDbContext context, 
+            ILiqPayService liqPayService,
+            ILogger<ConfirmPaymentCommandHandler> logger)
         {
             _context = context;
             _liqPayService = liqPayService;
+            _logger = logger;
         }
 
         public async Task<Unit> Handle(ConfirmPaymentCommand request, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("=== LiqPay Callback Received ===");
+            _logger.LogInformation("Data length: {Length}", request.CallbackDto.Data?.Length ?? 0);
+            _logger.LogInformation("Signature length: {Length}", request.CallbackDto.Signature?.Length ?? 0);
+
             // Проверка подписи от LiqPay
             if (!_liqPayService.VerifyCallback(request.CallbackDto.Data, request.CallbackDto.Signature))
             {
+                _logger.LogError("❌ Invalid LiqPay signature!");
                 throw new Exception("Invalid LiqPay signature");
             }
 
-            // Парсим данные от LiqPay (нужно реализовать метод в ILiqPayService)
+            _logger.LogInformation("✅ LiqPay signature verified");
+
+            // Парсим данные от LiqPay
             var paymentData = _liqPayService.ParseCallbackData(request.CallbackDto.Data);
+
+            _logger.LogInformation("Parsed payment data: BookingId={BookingId}, Status={Status}, Amount={Amount}", 
+                paymentData.BookingId, paymentData.Status, paymentData.Amount);
 
             // Получаем bookingId из данных платежа
             var bookingId = paymentData.BookingId;
@@ -47,12 +63,17 @@ namespace PoMoyka.Backend.Application.Services.Booking
 
             if (booking == null)
             {
+                _logger.LogError("❌ Booking with ID {BookingId} not found!", bookingId);
                 throw new Exception($"Booking with ID {bookingId} not found");
             }
+
+            _logger.LogInformation("Found booking: Current status={Status}", booking.Status);
 
             // Проверяем статус платежа
             if (paymentData.Status == "success")
             {
+                _logger.LogInformation("✅ Payment successful! Updating booking to Done");
+                
                 // Оплата успешна - меняем статус на Done
                 booking.Status = BookingStatus.Done;
                 booking.UpdatedAt = DateTime.UtcNow;
@@ -67,18 +88,25 @@ namespace PoMoyka.Backend.Application.Services.Booking
                 };
 
                 await _context.Transactions.AddAsync(transaction, cancellationToken);
+                _logger.LogInformation("Transaction created with Amount={Amount}", booking.CenterService.Price);
             }
             else // failure, error, pending или любой другой статус
             {
+                _logger.LogWarning("⚠️ Payment not successful! Status={Status}. Cancelling booking", paymentData.Status);
+                
                 // Оплата не удалась или ожидает подтверждения - отменяем бронирование
                 booking.Status = BookingStatus.Cancelled;
                 booking.UpdatedAt = DateTime.UtcNow;
             }
 
             await _context.SaveChangesAsync(cancellationToken);
+            
+            _logger.LogInformation("✅ Booking updated successfully. New status={Status}", booking.Status);
+            _logger.LogInformation("=== LiqPay Callback Processing Complete ===");
 
             return Unit.Value;
         }
     }
 }
+
 
