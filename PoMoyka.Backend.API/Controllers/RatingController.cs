@@ -12,7 +12,6 @@ namespace PoMoyka.Backend.API.Controllers
         /// Добавить рейтинг к транзакции (только для Client)
         /// </summary>
         [HttpPost]
-        [Authorize(Roles = "Client")]
         public async Task<IActionResult> Create([FromBody] RatingCreateDto dto)
         {
             var command = new CreateRatingCommand(dto);
