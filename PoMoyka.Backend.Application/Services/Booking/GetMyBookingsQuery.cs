@@ -54,6 +54,7 @@ namespace PoMoyka.Backend.Application.Services.Booking
                     .ThenInclude(cs => cs.TypeService)
                         .ThenInclude(ts => ts.Service)
                 .Include(b => b.Transaction)
+                    .ThenInclude(t => t.Rating)
                 .OrderByDescending(b => b.CreatedAt)
                 .Select(b => new BookingDetailedDto
                 {
@@ -75,7 +76,9 @@ namespace PoMoyka.Backend.Application.Services.Booking
                     CarType = (CarType)b.CenterService.TypeService.CarType,
                     Price = b.CenterService.Price,
                     TransactionId = b.Transaction != null ? b.Transaction.Id : null,
-                    TransactionAmount = b.Transaction != null ? b.Transaction.Amount : null
+                    TransactionAmount = b.Transaction != null ? b.Transaction.Amount : null,
+                    RatingId = b.Transaction != null && b.Transaction.Rating != null ? b.Transaction.Rating.Id : null,
+                    RatingValue = b.Transaction != null && b.Transaction.Rating != null ? (int)b.Transaction.Rating.RatingNumber + 1 : null // One=0 -> 1, Two=1 -> 2, etc.
                 })
                 .ToListAsync(cancellationToken);
 

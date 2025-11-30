@@ -31,6 +31,10 @@ namespace PoMoyka.Backend.Contracts.DTOs.ReadingDTOs
         // Transaction info (если есть)
         public Guid? TransactionId { get; set; }
         public decimal? TransactionAmount { get; set; }
+
+        // Rating info (если есть)
+        public Guid? RatingId { get; set; }
+        public int? RatingValue { get; set; } // 1-5 (One=1, Two=2, Three=3, Four=4, Five=5)
     }
 }
 
