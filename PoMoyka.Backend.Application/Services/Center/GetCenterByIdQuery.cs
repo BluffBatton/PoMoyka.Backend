@@ -53,6 +53,37 @@ namespace PoMoyka.Backend.Application.Services.Center
                 Description = cs.TypeService.Service.Description
             }).ToList() ?? new List<PricedServiceDto>();
 
+            // Вычисляем средний рейтинг центра
+            var centerServiceIds = center.CenterServices?.Select(cs => cs.Id).ToList() ?? new List<Guid>();
+
+            if (centerServiceIds.Any())
+            {
+                // Получаем рейтинги через Transaction -> Booking -> CenterService
+                var ratings = await _context.Ratings
+                    .AsNoTracking()
+                    .Include(r => r.Transaction)
+                        .ThenInclude(t => t.Booking)
+                    .Where(r => centerServiceIds.Contains(r.Transaction.Booking.CenterServiceId))
+                    .Select(r => (int)r.RatingNumber + 1) // One=0 -> 1, Two=1 -> 2, Three=2 -> 3, Four=3 -> 4, Five=4 -> 5
+                    .ToListAsync(cancellationToken);
+
+                if (ratings.Any())
+                {
+                    dto.AverageRating = Math.Round(ratings.Average(), 2);
+                    dto.TotalRatings = ratings.Count;
+                }
+                else
+                {
+                    dto.AverageRating = null;
+                    dto.TotalRatings = 0;
+                }
+            }
+            else
+            {
+                dto.AverageRating = null;
+                dto.TotalRatings = 0;
+            }
+
             return dto;
         }
     }
