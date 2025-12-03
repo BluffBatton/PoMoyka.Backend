@@ -8,6 +8,7 @@ namespace PoMoyka.Backend.Application.Common.Mappings.ReadingDTOMappings
         public StatementMappingProfile()
         {
             CreateMap<Statement, StatementDto>()
+                .ForMember(d => d.StatementId, opt => opt.MapFrom(s => s.Id))
                 .ForMember(d => d.FullName,
                     opt => opt.MapFrom(s => s.User.FirstName + " " + s.User.LastName))
                 .ForMember(d => d.Email,
