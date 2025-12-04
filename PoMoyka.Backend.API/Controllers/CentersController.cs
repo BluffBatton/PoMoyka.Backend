@@ -7,7 +7,6 @@ using PoMoyka.Backend.Contracts.DTOs.UpdateDTOs;
 
 namespace PoMoyka.Backend.API.Controllers
 {
-    [Authorize]
     public class CentersController : BaseController
     {
         [HttpPost]
@@ -27,6 +26,7 @@ namespace PoMoyka.Backend.API.Controllers
             return Ok(centersList);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<CenterDetailedDto>> GetById(Guid id)
         {
