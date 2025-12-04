@@ -9,6 +9,15 @@ namespace PoMoyka.Backend.API.Controllers
 {
     public class CentersController : BaseController
     {
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<ActionResult<List<CenterDto>>> GetAll()
+        {
+            var query = new GetAllCentersQuery();
+            var centersList = await Mediator.Send(query);
+            return Ok(centersList);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Employee,Admin")]
         public async Task<IActionResult> Create([FromBody] СenterCreateDto dto)
@@ -16,14 +25,6 @@ namespace PoMoyka.Backend.API.Controllers
             var command = new CreateCenterCommand(dto);
             var centerId = await Mediator.Send(command);
             return Ok(centerId);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<List<CenterDto>>> GetAll()
-        {
-            var query = new GetAllCentersQuery();
-            var centersList = await Mediator.Send(query);
-            return Ok(centersList);
         }
 
         [Authorize]
