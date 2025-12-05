@@ -8,7 +8,6 @@ using PoMoyka.Backend.Contracts.DTOs.UpdateDTOs;
 
 namespace PoMoyka.Backend.API.Controllers
 {
-    [Authorize]
     public class CentersServicesController : BaseController
     {
         [HttpPost]
@@ -30,6 +29,7 @@ namespace PoMoyka.Backend.API.Controllers
         }
 
         [HttpGet("{centerId}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CenterPricelistDto>> GetPriceList(Guid centerId)
         {
             var query = new GetCenterPricelistQuery(centerId);
