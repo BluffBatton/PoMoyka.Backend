@@ -27,7 +27,7 @@ namespace PoMoyka.Backend.API.Controllers
             return Ok(centerId);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<CenterDetailedDto>> GetById(Guid id)
         {
