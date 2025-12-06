@@ -20,7 +20,7 @@ namespace PoMoyka.Backend.API.Controllers
         }
 
         [HttpGet("{centerId}")]
-        [Authorize(Roles = "Employee,Admin")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<CenterServiceDto>>> GetAll(Guid centerId)
         {
             var query = new GetAllCenterServicesQuery(centerId);
